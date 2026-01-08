@@ -246,5 +246,3 @@ Import/export interface and final polish.**Files to create:**
 **Typography:** System font stack with monospace for numbers---
 
 ## Deliverables Checklist
-
-| File | Purpose ||------|---------|| index.html | Home/status page || builder.html | Data model editor || dashboard.html | Summary + charts || timeline.html | Transaction ledger || scenarios.html | What-if lab || storage.html | Import/export/reset || assets/css/app.css | Dark theme styles |

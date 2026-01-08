@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Storage - FSS</title>
+  
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+  <!-- Custom CSS -->
+  <link href="assets/css/app.css" rel="stylesheet">
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">
+        <span class="brand-icon">📊</span>
+        FSS
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="index.html"><i class="bi bi-house me-1"></i>Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="builder.html"><i class="bi bi-tools me-1"></i>Builder</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="dashboard.html"><i class="bi bi-speedometer2 me-1"></i>Dashboard</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="timeline.html"><i class="bi bi-list-ul me-1"></i>Timeline</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="scenarios.html"><i class="bi bi-sliders me-1"></i>Scenarios</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="storage.html"><i class="bi bi-database me-1"></i>Storage</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="container py-4">
+    <div class="page-header">
+      <h1><i class="bi bi-database me-2"></i>Storage</h1>
+      <p class="subtitle">Import, export, and manage your data</p>
+    </div>
+
+    <!-- Privacy Reminder -->
+    <div class="alert alert-info mb-4">
+      <div class="d-flex align-items-start gap-2">
+        <i class="bi bi-shield-lock fs-5"></i>
+        <div>
+          <strong>Your data stays on your device.</strong> All data is stored in your browser's localStorage. 
+          Exporting creates a local file download — nothing is uploaded to any server.
+        </div>
+      </div>
+    </div>
+
+    <!-- Storage Stats -->
+    <div class="card mb-4">
+      <div class="card-header d-flex align-items-center gap-2">
+        <i class="bi bi-pie-chart"></i>
+        Storage Usage
+      </div>
+      <div class="card-body">
+        <div class="row g-4">
+          <div class="col-md-4">
+            <div class="text-muted small">Base Model</div>
+            <div class="h5 mono" id="stat-base-size">0 bytes</div>
+            <div class="small" id="stat-base-status">Not loaded</div>
+          </div>
+          <div class="col-md-4">
+            <div class="text-muted small">Scenario Draft</div>
+            <div class="h5 mono" id="stat-scenario-size">0 bytes</div>
+            <div class="small" id="stat-scenario-status">No active scenario</div>
+          </div>
+          <div class="col-md-4">
+            <div class="text-muted small">Total Usage</div>
+            <div class="h5 mono" id="stat-total-size">0 bytes</div>
+            <div class="small text-muted">localStorage limit: ~5MB</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row g-4">
+      <!-- Export Section -->
+      <div class="col-md-6">
+        <div class="card h-100">
+          <div class="card-header d-flex align-items-center gap-2">
+            <i class="bi bi-download"></i>
+            Export Data
+          </div>
+          <div class="card-body">
+            <p class="text-muted small mb-4">Download your data as JSON files for backup or transfer to another browser.</p>
+            
+            <div class="d-grid gap-3">
+              <button class="btn btn-outline-primary" id="btn-export-base">
+                <i class="bi bi-file-earmark-code me-2"></i>
+                Export Base Model
+                <span class="d-block small text-muted">Your main financial model</span>
+              </button>
+              
+              <button class="btn btn-outline-secondary" id="btn-export-full">
+                <i class="bi bi-files me-2"></i>
+                Export Base + Scenario
+                <span class="d-block small text-muted">Includes active scenario draft</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Import Section -->
+      <div class="col-md-6">
+        <div class="card h-100">
+          <div class="card-header d-flex align-items-center gap-2">
+            <i class="bi bi-upload"></i>
+            Import Data
+          </div>
+          <div class="card-body">
+            <p class="text-muted small mb-4">Load a previously exported JSON file. This will replace your current data.</p>
+            
+            <div class="mb-3">
+              <label for="import-file" class="form-label">Select JSON File</label>
+              <input type="file" class="form-control" id="import-file" accept=".json">
+            </div>
+            
+            <div class="alert alert-warning small mb-3 d-none" id="import-preview">
+              <!-- Import preview will be shown here -->
+            </div>
+            
+            <button class="btn btn-primary w-100" id="btn-import" disabled>
+              <i class="bi bi-upload me-1"></i>Import File
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Reset Section -->
+    <div class="card mt-4 border-danger">
+      <div class="card-header d-flex align-items-center gap-2 text-danger">
+        <i class="bi bi-exclamation-triangle"></i>
+        Danger Zone
+      </div>
+      <div class="card-body">
+        <p class="text-muted small mb-4">These actions are destructive and cannot be undone. Export your data first if you want to keep it.</p>
+        
+        <div class="row g-3">
+          <div class="col-md-4">
+            <button class="btn btn-outline-warning w-100" id="btn-reset-scenario">
+              <i class="bi bi-eraser me-1"></i>Reset Scenario
+              <span class="d-block small">Clear scenario draft only</span>
+            </button>
+          </div>
+          <div class="col-md-4">
+            <button class="btn btn-outline-danger w-100" id="btn-reset-base">
+              <i class="bi bi-trash me-1"></i>Reset Base Model
+              <span class="d-block small">Clear your financial model</span>
+            </button>
+          </div>
+          <div class="col-md-4">
+            <button class="btn btn-danger w-100" id="btn-reset-all">
+              <i class="bi bi-trash3 me-1"></i>Reset All Data
+              <span class="d-block small">Wipe everything</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Data Preview -->
+    <div class="card mt-4">
+      <div class="card-header d-flex align-items-center justify-content-between">
+        <div class="d-flex align-items-center gap-2">
+          <i class="bi bi-code-square"></i>
+          Data Preview
+        </div>
+        <button class="btn btn-sm btn-outline-secondary" id="btn-toggle-preview">
+          <i class="bi bi-eye"></i> Show
+        </button>
+      </div>
+      <div class="card-body d-none" id="preview-body">
+        <ul class="nav nav-tabs mb-3" role="tablist">
+          <li class="nav-item" role="presentation">
+            <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#preview-base" type="button">Base Model</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#preview-scenario" type="button">Scenario</button>
+          </li>
+        </ul>
+        <div class="tab-content">
+          <div class="tab-pane fade show active" id="preview-base" role="tabpanel">
+            <pre class="bg-tertiary p-3 rounded" style="max-height: 400px; overflow: auto;"><code id="preview-base-code">No data</code></pre>
+          </div>
+          <div class="tab-pane fade" id="preview-scenario" role="tabpanel">
+            <pre class="bg-tertiary p-3 rounded" style="max-height: 400px; overflow: auto;"><code id="preview-scenario-code">No scenario</code></pre>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="container py-4 mt-auto">
+    <div class="text-center text-muted small">
+      <p class="mb-0">Finance Scenario Simulator v1.0 — 100% Client-Side, Zero Data Collection</p>
+    </div>
+  </footer>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Luxon -->
+  <script src="https://cdn.jsdelivr.net/npm/luxon@3.4.4/build/global/luxon.min.js"></script>
+  
+  <!-- FSS Core -->
+  <script src="assets/js/schema.js"></script>
+  <script src="assets/js/storage.js"></script>
+  <script src="assets/js/model.js"></script>
+  <script src="assets/js/app-init.js"></script>
+  <script src="assets/js/ui/storage-ui.js"></script>
+</body>
+</html>
+

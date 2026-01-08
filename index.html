@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Finance Scenario Simulator</title>
+  
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+  <!-- Custom CSS -->
+  <link href="assets/css/app.css" rel="stylesheet">
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">
+        <span class="brand-icon">📊</span>
+        FSS
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="index.html"><i class="bi bi-house me-1"></i>Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="builder.html"><i class="bi bi-tools me-1"></i>Builder</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="dashboard.html"><i class="bi bi-speedometer2 me-1"></i>Dashboard</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="timeline.html"><i class="bi bi-list-ul me-1"></i>Timeline</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="scenarios.html"><i class="bi bi-sliders me-1"></i>Scenarios</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="storage.html"><i class="bi bi-database me-1"></i>Storage</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Scenario Banner (hidden by default) -->
+  <div class="container mt-3">
+    <div class="scenario-banner" id="scenario-banner" style="display: none;">
+      <span class="icon"><i class="bi bi-exclamation-triangle-fill"></i></span>
+      <div class="flex-grow-1">
+        <strong>Scenario Mode Active</strong> — You have uncommitted scenario changes.
+      </div>
+      <a href="scenarios.html" class="btn btn-sm btn-warning">View Scenario</a>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <main class="container py-4">
+    <!-- Privacy Notice -->
+    <div class="privacy-notice mb-4 fade-in">
+      <div class="d-flex align-items-start gap-3">
+        <span class="icon"><i class="bi bi-shield-lock-fill"></i></span>
+        <div>
+          <h5 class="mb-1">Your Data Stays Private</h5>
+          <p class="mb-0 text-secondary">
+            Finance Scenario Simulator runs entirely in your browser. No servers, no accounts, no tracking. 
+            Your financial data never leaves your device unless you explicitly export it.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="page-header">
+      <h1>Finance Scenario Simulator</h1>
+      <p class="subtitle">Plan your finances, explore scenarios, and make informed decisions.</p>
+    </div>
+
+    <!-- Status Cards -->
+    <div class="row g-4 mb-4">
+      <!-- Base Model Status -->
+      <div class="col-md-6">
+        <div class="card h-100">
+          <div class="card-header d-flex align-items-center gap-2">
+            <i class="bi bi-database"></i>
+            Base Model Status
+          </div>
+          <div class="card-body">
+            <div id="base-model-status">
+              <div class="d-flex align-items-center gap-2 mb-3">
+                <span class="status-dot" id="model-status-dot"></span>
+                <span id="model-status-text">Checking...</span>
+              </div>
+              <div id="model-stats" class="text-muted small"></div>
+            </div>
+          </div>
+          <div class="card-footer bg-transparent border-top-0">
+            <a href="builder.html" class="btn btn-primary btn-sm">
+              <i class="bi bi-pencil me-1"></i>Open Builder
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Scenario Status -->
+      <div class="col-md-6">
+        <div class="card h-100">
+          <div class="card-header d-flex align-items-center gap-2">
+            <i class="bi bi-sliders"></i>
+            Scenario Status
+          </div>
+          <div class="card-body">
+            <div id="scenario-status">
+              <div class="d-flex align-items-center gap-2 mb-3">
+                <span class="status-dot" id="scenario-status-dot"></span>
+                <span id="scenario-status-text">Checking...</span>
+              </div>
+              <div id="scenario-stats" class="text-muted small"></div>
+            </div>
+          </div>
+          <div class="card-footer bg-transparent border-top-0">
+            <a href="scenarios.html" class="btn btn-outline-secondary btn-sm">
+              <i class="bi bi-sliders me-1"></i>Open Scenario Lab
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="card mb-4">
+      <div class="card-header d-flex align-items-center gap-2">
+        <i class="bi bi-lightning"></i>
+        Quick Actions
+      </div>
+      <div class="card-body">
+        <div class="row g-3">
+          <div class="col-sm-6 col-md-3">
+            <a href="dashboard.html" class="btn btn-outline-secondary w-100 py-3">
+              <i class="bi bi-speedometer2 d-block fs-4 mb-1"></i>
+              View Dashboard
+            </a>
+          </div>
+          <div class="col-sm-6 col-md-3">
+            <a href="timeline.html" class="btn btn-outline-secondary w-100 py-3">
+              <i class="bi bi-list-ul d-block fs-4 mb-1"></i>
+              View Timeline
+            </a>
+          </div>
+          <div class="col-sm-6 col-md-3">
+            <button class="btn btn-outline-secondary w-100 py-3" id="btn-export-quick">
+              <i class="bi bi-download d-block fs-4 mb-1"></i>
+              Export Data
+            </button>
+          </div>
+          <div class="col-sm-6 col-md-3">
+            <label class="btn btn-outline-secondary w-100 py-3" for="import-file-quick">
+              <i class="bi bi-upload d-block fs-4 mb-1"></i>
+              Import Data
+              <input type="file" id="import-file-quick" accept=".json" class="d-none">
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Getting Started -->
+    <div class="card">
+      <div class="card-header d-flex align-items-center gap-2">
+        <i class="bi bi-rocket"></i>
+        Getting Started
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-6">
+            <h6>1. Build Your Financial Model</h6>
+            <p class="text-muted small">
+              Start by setting up your accounts, starting balances, and recurring income/expenses in the 
+              <a href="builder.html">Builder</a>.
+            </p>
+          </div>
+          <div class="col-md-6">
+            <h6>2. Review Your Projections</h6>
+            <p class="text-muted small">
+              View your cash flow projections in the <a href="dashboard.html">Dashboard</a> and 
+              detailed transactions in the <a href="timeline.html">Timeline</a>.
+            </p>
+          </div>
+          <div class="col-md-6">
+            <h6>3. Explore What-If Scenarios</h6>
+            <p class="text-muted small">
+              Use the <a href="scenarios.html">Scenario Lab</a> to test changes without affecting your 
+              base model.
+            </p>
+          </div>
+          <div class="col-md-6">
+            <h6>4. Export Your Data</h6>
+            <p class="text-muted small">
+              Back up your data or transfer to another browser using the <a href="storage.html">Storage</a> page.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="container py-4 mt-auto">
+    <div class="text-center text-muted small">
+      <p class="mb-0">Finance Scenario Simulator v1.0 — 100% Client-Side, Zero Data Collection</p>
+    </div>
+  </footer>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Luxon -->
+  <script src="https://cdn.jsdelivr.net/npm/luxon@3.4.4/build/global/luxon.min.js"></script>
+  
+  <!-- FSS Core -->
+  <script src="assets/js/schema.js"></script>
+  <script src="assets/js/storage.js"></script>
+  <script src="assets/js/model.js"></script>
+  <script src="assets/js/app-init.js"></script>
+  
+  <!-- Home Page UI -->
+  <script>
+    FSS.UI.Home = (function() {
+      'use strict';
+
+      function updateStatus() {
+        const stats = FSS.Storage.getStats();
+        const model = FSS.Storage.loadBaseModel();
+        
+        // Base model status
+        const modelDot = document.getElementById('model-status-dot');
+        const modelText = document.getElementById('model-status-text');
+        const modelStats = document.getElementById('model-stats');
+        
+        if (stats.hasBaseModel && model) {
+          modelDot.classList.add('active');
+          modelText.textContent = 'Base model loaded';
+          
+          const accountCount = model.accounts?.length || 0;
+          const ruleCount = model.rules?.length || 0;
+          const oneOffCount = model.oneOffs?.length || 0;
+          
+          modelStats.innerHTML = `
+            <div>${accountCount} account${accountCount !== 1 ? 's' : ''}</div>
+            <div>${ruleCount} rule${ruleCount !== 1 ? 's' : ''}</div>
+            <div>${oneOffCount} one-off${oneOffCount !== 1 ? 's' : ''}</div>
+            <div class="mt-2">Last updated: ${model.meta?.updatedAt ? FSS.App.formatDate(model.meta.updatedAt) : 'Unknown'}</div>
+          `;
+        } else {
+          modelDot.classList.add('inactive');
+          modelText.textContent = 'No base model';
+          modelStats.innerHTML = '<div>Start by creating your financial model in the Builder.</div>';
+        }
+        
+        // Scenario status
+        const scenarioDot = document.getElementById('scenario-status-dot');
+        const scenarioText = document.getElementById('scenario-status-text');
+        const scenarioStats = document.getElementById('scenario-stats');
+        
+        if (stats.hasScenarioDraft) {
+          const scenario = FSS.Storage.loadScenarioDraft();
+          scenarioDot.classList.add('warning');
+          scenarioText.textContent = 'Active scenario draft';
+          scenarioStats.innerHTML = `
+            <div>${scenario?.ops?.length || 0} pending operation${(scenario?.ops?.length || 0) !== 1 ? 's' : ''}</div>
+            <div>Name: ${scenario?.meta?.name || 'Unnamed'}</div>
+          `;
+        } else {
+          scenarioDot.classList.add('inactive');
+          scenarioText.textContent = 'No active scenario';
+          scenarioStats.innerHTML = '<div>Create a what-if scenario to explore changes safely.</div>';
+        }
+      }
+
+      function setupEventHandlers() {
+        // Quick export
+        document.getElementById('btn-export-quick')?.addEventListener('click', () => {
+          const json = FSS.Storage.exportBaseModelJSON();
+          if (json) {
+            const filename = `fss-backup-${luxon.DateTime.now().toFormat('yyyy-MM-dd')}.json`;
+            FSS.App.downloadFile(json, filename);
+            FSS.App.showToast('Data exported successfully', 'success');
+          } else {
+            FSS.App.showToast('No data to export', 'warning');
+          }
+        });
+
+        // Quick import
+        document.getElementById('import-file-quick')?.addEventListener('change', async (e) => {
+          const file = e.target.files[0];
+          if (!file) return;
+          
+          try {
+            const content = await FSS.App.readFile(file);
+            const result = FSS.Storage.importJSON(content);
+            
+            if (result.success) {
+              FSS.App.showToast(result.message, 'success');
+              updateStatus();
+            } else {
+              FSS.App.showToast(result.message, 'error');
+            }
+          } catch (err) {
+            FSS.App.showToast('Failed to read file', 'error');
+          }
+          
+          e.target.value = '';
+        });
+      }
+
+      function init() {
+        updateStatus();
+        setupEventHandlers();
+      }
+
+      return { init };
+    })();
+  </script>
+</body>
+</html>
+

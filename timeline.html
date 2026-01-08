@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Timeline - FSS</title>
+  
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+  <!-- Custom CSS -->
+  <link href="assets/css/app.css" rel="stylesheet">
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">
+        <span class="brand-icon">📊</span>
+        FSS
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="index.html"><i class="bi bi-house me-1"></i>Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="builder.html"><i class="bi bi-tools me-1"></i>Builder</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="dashboard.html"><i class="bi bi-speedometer2 me-1"></i>Dashboard</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="timeline.html"><i class="bi bi-list-ul me-1"></i>Timeline</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="scenarios.html"><i class="bi bi-sliders me-1"></i>Scenarios</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="storage.html"><i class="bi bi-database me-1"></i>Storage</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Scenario Banner (hidden by default) -->
+  <div class="container mt-3">
+    <div class="scenario-banner" id="scenario-banner" style="display: none;">
+      <span class="icon"><i class="bi bi-exclamation-triangle-fill"></i></span>
+      <div class="flex-grow-1">
+        <strong>Scenario Mode Active</strong> — Viewing scenario transactions.
+      </div>
+      <a href="scenarios.html" class="btn btn-sm btn-warning">View Scenario</a>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <main class="container py-4">
+    <div class="page-header">
+      <div class="d-flex justify-content-between align-items-start flex-wrap gap-3">
+        <div>
+          <h1><i class="bi bi-list-ul me-2"></i>Timeline</h1>
+          <p class="subtitle">Detailed transaction ledger</p>
+        </div>
+        <div>
+          <button class="btn btn-outline-secondary btn-sm" id="btn-export-csv">
+            <i class="bi bi-file-earmark-spreadsheet me-1"></i>Export CSV
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Filters -->
+    <div class="card mb-4">
+      <div class="card-body">
+        <div class="row g-3 align-items-end">
+          <div class="col-sm-6 col-md-3">
+            <label class="form-label">Month</label>
+            <select class="form-select form-select-sm" id="filter-month">
+              <option value="">All Months</option>
+            </select>
+          </div>
+          <div class="col-sm-6 col-md-3">
+            <label class="form-label">Category</label>
+            <select class="form-select form-select-sm" id="filter-category">
+              <option value="">All Categories</option>
+            </select>
+          </div>
+          <div class="col-sm-6 col-md-3">
+            <label class="form-label">Type</label>
+            <select class="form-select form-select-sm" id="filter-type">
+              <option value="">All Types</option>
+              <option value="income">Income</option>
+              <option value="expense">Expense</option>
+              <option value="transfer">Transfer</option>
+            </select>
+          </div>
+          <div class="col-sm-6 col-md-3">
+            <label class="form-label">Account</label>
+            <select class="form-select form-select-sm" id="filter-account">
+              <option value="">All Accounts</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Ledger Summary -->
+    <div class="row g-3 mb-4">
+      <div class="col-auto">
+        <span class="text-muted">Showing:</span>
+        <span class="fw-bold" id="showing-count">0</span>
+        <span class="text-muted">transactions</span>
+      </div>
+      <div class="col-auto">
+        <span class="text-muted">Period:</span>
+        <span class="fw-bold" id="showing-period">--</span>
+      </div>
+      <div class="col-auto">
+        <span class="badge bg-income">
+          <i class="bi bi-arrow-down me-1"></i>Income: <span id="filter-income-total">$0</span>
+        </span>
+      </div>
+      <div class="col-auto">
+        <span class="badge bg-expense">
+          <i class="bi bi-arrow-up me-1"></i>Expenses: <span id="filter-expense-total">$0</span>
+        </span>
+      </div>
+    </div>
+
+    <!-- Ledger Table -->
+    <div class="card">
+      <div class="table-responsive">
+        <table class="table table-hover mb-0" id="ledger-table">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Description</th>
+              <th>Category</th>
+              <th class="text-end">Amount</th>
+              <th class="text-end">Balance</th>
+              <th>Source</th>
+            </tr>
+          </thead>
+          <tbody id="ledger-body">
+            <!-- Populated by JS -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Empty State -->
+    <div class="empty-state d-none" id="empty-state">
+      <div class="icon"><i class="bi bi-list-ul"></i></div>
+      <h5>No Transactions</h5>
+      <p>Add rules and starting balances in the Builder to see projected transactions.</p>
+      <a href="builder.html" class="btn btn-primary">
+        <i class="bi bi-tools me-1"></i>Open Builder
+      </a>
+    </div>
+
+    <!-- Pagination -->
+    <nav class="mt-4 d-none" id="pagination-nav">
+      <ul class="pagination justify-content-center" id="pagination">
+        <!-- Populated by JS -->
+      </ul>
+    </nav>
+  </main>
+
+  <!-- Footer -->
+  <footer class="container py-4 mt-auto">
+    <div class="text-center text-muted small">
+      <p class="mb-0">Finance Scenario Simulator v1.0 — 100% Client-Side, Zero Data Collection</p>
+    </div>
+  </footer>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Luxon -->
+  <script src="https://cdn.jsdelivr.net/npm/luxon@3.4.4/build/global/luxon.min.js"></script>
+  
+  <!-- FSS Core -->
+  <script src="assets/js/schema.js"></script>
+  <script src="assets/js/storage.js"></script>
+  <script src="assets/js/model.js"></script>
+  <script src="assets/js/recurrence.js"></script>
+  <script src="assets/js/business-day.js"></script>
+  <script src="assets/js/ledger.js"></script>
+  <script src="assets/js/overlay.js"></script>
+  <script src="assets/js/app-init.js"></script>
+  <script src="assets/js/ui/timeline-ui.js"></script>
+</body>
+</html>
+

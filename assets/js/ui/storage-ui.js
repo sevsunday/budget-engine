@@ -3,7 +3,7 @@
  * Export/import/reset controls
  */
 
-const FSS = window.FSS || {};
+var FSS = window.FSS || {};
 FSS.UI = FSS.UI || {};
 
 FSS.UI.Storage = (function() {

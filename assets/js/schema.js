@@ -3,7 +3,7 @@
  * JSON schema definition, validation, and default factory functions
  */
 
-const FSS = window.FSS || {};
+var FSS = window.FSS || {};
 
 FSS.Schema = (function() {
   'use strict';

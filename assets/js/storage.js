@@ -3,7 +3,7 @@
  * localStorage wrapper for base model and scenario draft persistence
  */
 
-const FSS = window.FSS || {};
+var FSS = window.FSS || {};
 
 FSS.Storage = (function() {
   'use strict';

@@ -3,7 +3,7 @@
  * Ledger table with filters and CSV export
  */
 
-const FSS = window.FSS || {};
+var FSS = window.FSS || {};
 FSS.UI = FSS.UI || {};
 
 FSS.UI.Timeline = (function() {

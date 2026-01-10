@@ -3,7 +3,7 @@
  * Accordion-based editor for all model sections
  */
 
-const FSS = window.FSS || {};
+var FSS = window.FSS || {};
 FSS.UI = FSS.UI || {};
 
 FSS.UI.Builder = (function() {

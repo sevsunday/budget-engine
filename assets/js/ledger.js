@@ -3,7 +3,7 @@
  * Transaction generation pipeline and ledger runner
  */
 
-const FSS = window.FSS || {};
+var FSS = window.FSS || {};
 
 FSS.Ledger = (function() {
   'use strict';

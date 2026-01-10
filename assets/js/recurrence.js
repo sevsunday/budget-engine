@@ -3,7 +3,7 @@
  * Expand recurring rules into dated transactions
  */
 
-const FSS = window.FSS || {};
+var FSS = window.FSS || {};
 
 FSS.Recurrence = (function() {
   'use strict';

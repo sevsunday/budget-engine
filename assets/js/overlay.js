@@ -3,7 +3,7 @@
  * Scenario operations processor for what-if exploration
  */
 
-const FSS = window.FSS || {};
+var FSS = window.FSS || {};
 
 FSS.Overlay = (function() {
   'use strict';

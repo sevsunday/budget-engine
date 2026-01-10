@@ -3,7 +3,7 @@
  * Base model CRUD operations for accounts, rules, one-offs, debts
  */
 
-const FSS = window.FSS || {};
+var FSS = window.FSS || {};
 
 FSS.Model = (function() {
   'use strict';

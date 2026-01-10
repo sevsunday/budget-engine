@@ -3,7 +3,7 @@
  * Summary cards and Chart.js visualizations
  */
 
-const FSS = window.FSS || {};
+var FSS = window.FSS || {};
 FSS.UI = FSS.UI || {};
 
 FSS.UI.Dashboard = (function() {

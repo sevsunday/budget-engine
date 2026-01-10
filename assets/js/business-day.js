@@ -3,7 +3,7 @@
  * Weekend detection and business day adjustment logic
  */
 
-const FSS = window.FSS || {};
+var FSS = window.FSS || {};
 
 FSS.BusinessDay = (function() {
   'use strict';

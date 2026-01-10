@@ -3,7 +3,7 @@
  * What-if scenario exploration interface
  */
 
-const FSS = window.FSS || {};
+var FSS = window.FSS || {};
 FSS.UI = FSS.UI || {};
 
 FSS.UI.Scenarios = (function() {

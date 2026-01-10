@@ -3,7 +3,7 @@
  * Monthly summaries and safe surplus calculations
  */
 
-const FSS = window.FSS || {};
+var FSS = window.FSS || {};
 
 FSS.Summary = (function() {
   'use strict';

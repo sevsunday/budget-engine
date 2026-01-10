@@ -3,7 +3,7 @@
  * APR calculations and payoff timeline projections
  */
 
-const FSS = window.FSS || {};
+var FSS = window.FSS || {};
 
 FSS.Debt = (function() {
   'use strict';

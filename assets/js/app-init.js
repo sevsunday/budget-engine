@@ -3,7 +3,7 @@
  * Bootstrap the application and load appropriate UI module based on current page
  */
 
-const FSS = window.FSS || {};
+var FSS = window.FSS || {};
 
 FSS.App = (function() {
   'use strict';
